@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Brand: night stadium -->
+    <color name="night_900">#0A1128</color>
+    <color name="night_800">#101B3A</color>
+    <color name="floodlight_yellow">#FFD23F</color>
+    <color name="grass_green">#3FB950</color>
+    <color name="wicket_red">#FF4D5E</color>
+    <color name="brand_blue">#1E6FD9</color>
+
+    <!-- Ball chips -->
+    <color name="chip_dot">#5B6785</color>
+    <color name="chip_run">#2F5CB8</color>
+    <color name="chip_wide">#8E6CEF</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="white_70">#B3FFFFFF</color>
+    <color name="white_50">#80FFFFFF</color>
+    <color name="white_12">#1FFFFFFF</color>
+    <color name="transparent">#00000000</color>
+    <color name="hud_scrim">#D90A1128</color>
+    <color name="skeleton">#33808AA8</color>
+</resources>

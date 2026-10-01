@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Stumps -->
+    <path
+        android:fillColor="#FFD23F"
+        android:pathData="M38,36h5v42h-5zM49.5,36h5v42h-5zM61,36h5v42h-5z" />
+    <!-- Bails -->
+    <path
+        android:fillColor="#FFF4C2"
+        android:pathData="M37,31.5h14v3h-14zM53,31.5h14v3h-14z" />
+    <!-- Ball -->
+    <path
+        android:fillColor="#C8102E"
+        android:pathData="M68,58a12,12 0,1 0,0.001 0z" />
+    <path
+        android:strokeColor="#F5E6C8"
+        android:strokeWidth="1.4"
+        android:fillColor="#00000000"
+        android:pathData="M63,59.2C66,64 66,76 63,80.8M73,59.2C70,64 70,76 73,80.8" />
+    <!-- Motion streak -->
+    <path
+        android:fillColor="#80FFFFFF"
+        android:pathData="M28,66h22v2.4h-22zM31,72h18v2.4h-18z" />
+</vector>

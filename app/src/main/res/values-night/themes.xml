@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.StrikeZone" parent="Base.Theme.StrikeZone">
+        <item name="colorPrimary">#FFD23F</item>
+        <item name="colorOnPrimary">#0A1128</item>
+        <item name="colorPrimaryContainer">#4A3D00</item>
+        <item name="colorOnPrimaryContainer">#FFE58F</item>
+        <item name="colorSecondary">#6EDC85</item>
+        <item name="colorOnSecondary">#003914</item>
+        <item name="colorSecondaryContainer">#1F5A2F</item>
+        <item name="colorOnSecondaryContainer">#C9F2D2</item>
+        <item name="colorTertiary">#8FB4FF</item>
+        <item name="colorOnTertiary">#0A1128</item>
+        <item name="colorTertiaryContainer">#24386B</item>
+        <item name="colorOnTertiaryContainer">#DCE4FF</item>
+        <item name="colorError">#FF8A94</item>
+        <item name="android:colorBackground">#0A1128</item>
+        <item name="colorOnBackground">#E6EAF5</item>
+        <item name="colorSurface">#0A1128</item>
+        <item name="colorOnSurface">#E6EAF5</item>
+        <item name="colorSurfaceVariant">#24386B</item>
+        <item name="colorOnSurfaceVariant">#AEB8D3</item>
+        <item name="colorOutline">#6B7898</item>
+        <item name="colorOutlineVariant">#2F3D63</item>
+        <item name="colorSurfaceContainerLowest">#070D20</item>
+        <item name="colorSurfaceContainerLow">#101B3A</item>
+        <item name="colorSurfaceContainer">#142146</item>
+        <item name="colorSurfaceContainerHigh">#1A2A52</item>
+        <item name="colorSurfaceContainerHighest">#213361</item>
+    </style>
+</resources>

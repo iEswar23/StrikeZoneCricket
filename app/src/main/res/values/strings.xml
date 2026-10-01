@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">StrikeZone Cricket</string>
+
+    <!-- Common -->
+    <string name="action_back">Back</string>
+    <string name="action_retry">Retry</string>
+    <string name="action_undo">Undo</string>
+    <string name="error_generic">Couldn\'t load the tournament. Check your connection and try again.</string>
+    <string name="emoji_cricket" translatable="false">🏏</string>
+    <string name="emoji_howto_0" translatable="false">🎯</string>
+    <string name="emoji_howto_1" translatable="false">↔️</string>
+    <string name="emoji_howto_2" translatable="false">⏱️</string>
+    <string name="emoji_howto_3" translatable="false">🧢</string>
+    <string name="emoji_howto_4" translatable="false">🏏</string>
+    <string name="emoji_howto_5" translatable="false">🪵</string>
+    <string name="emoji_howto_6" translatable="false">⚡</string>
+    <string name="emoji_howto_7" translatable="false">📅</string>
+    <string name="emoji_chart" translatable="false">📊</string>
+
+    <!-- Home -->
+    <string name="home_title_top">STRIKEZONE</string>
+    <string name="home_title_bottom">CRICKET</string>
+    <string name="home_tagline">Time it. Strike it. Chase it down.</string>
+    <string name="home_play">Play Quick Chase</string>
+    <string name="home_played">Played</string>
+    <string name="home_won">Won</string>
+    <string name="home_best">Best score</string>
+    <string name="home_daily_section">Daily challenge</string>
+    <string name="home_more_section">Clubhouse</string>
+    <string name="home_challenge_target">Target %1$d · %2$d ov · %3$d wkts · %4$s</string>
+    <string name="home_challenge_play">Take the challenge</string>
+    <string name="home_challenge_done">Completed</string>
+    <string name="home_challenge_error">Today\'s challenge hasn\'t arrived yet.</string>
+    <string name="home_tile_history">History</string>
+    <string name="home_tile_stats">Stats</string>
+    <string name="home_tile_howto">How to play</string>
+    <string name="home_tile_settings">Settings</string>
+
+    <!-- Setup -->
+    <string name="setup_title">Match setup</string>
+    <string name="setup_mode">Mode</string>
+    <string name="mode_quick">Quick Chase</string>
+    <string name="mode_daily">Daily Challenge</string>
+    <string name="mode_quick_short">Quick</string>
+    <string name="mode_daily_short">Daily</string>
+    <string name="setup_your_team">Your team</string>
+    <string name="setup_opponent">Opponent</string>
+    <string name="setup_overs">Overs</string>
+    <string name="setup_overs_1">1 over</string>
+    <string name="setup_overs_2">2 overs</string>
+    <string name="setup_overs_5">5 overs</string>
+    <string name="setup_difficulty">Difficulty</string>
+    <string name="difficulty_easy">Easy</string>
+    <string name="difficulty_medium">Medium</string>
+    <string name="difficulty_hard">Hard</string>
+    <string name="setup_team_meta">★ %1$d · %2$s</string>
+    <string name="setup_other_side">VS</string>
+    <string name="setup_loading_teams">Fetching the tournament squads…</string>
+    <string name="setup_not_ready">Teams are still loading</string>
+    <string name="setup_challenge_title">%1$s  %2$s</string>
+    <string name="setup_challenge_loading">Loading today\'s challenge…</string>
+    <string name="setup_challenge_locked">Opponent, overs and difficulty are set by the challenge.</string>
+    <string name="setup_matchup">%1$s vs %2$s</string>
+    <string name="setup_matchup_placeholder">Pick your teams</string>
+    <string name="setup_target_label">Target</string>
+    <string name="setup_summary_details">%1$d over%2$s · %3$d wickets · %4$s</string>
+    <string name="setup_summary_rate">Required rate %s per over</string>
+    <string name="setup_reroll">New target</string>
+    <string name="setup_start">Start the chase</string>
+
+    <!-- Game -->
+    <string name="game_pause">Pause</string>
+    <string name="game_bowler_line">%1$s · %2$s · %3$d km/h</string>
+    <string name="game_team_vs">%1$s vs %2$s</string>
+    <string name="game_overs_of">Overs (of %d)</string>
+    <string name="game_target">Target %d</string>
+    <string name="game_wickets_value">%1$d/%2$d</string>
+    <string name="game_wickets">Wkts</string>
+    <string name="game_crr">CRR</string>
+    <string name="game_rrr">RRR</string>
+    <string name="game_this_over">This over</string>
+    <string name="game_field">Field: %s</string>
+    <string name="game_dir_leg">◀ Leg</string>
+    <string name="game_dir_straight">▲ Straight</string>
+    <string name="game_dir_off">Off ▶</string>
+    <string name="game_hint">Tap or swipe as the ring closes on the batter</string>
+    <string name="game_loading">Walking out to bat…</string>
+    <string name="game_error">Couldn\'t load the teams for this match.</string>
+    <string name="timing_perfect">PERFECT TIMING</string>
+    <string name="timing_early">A LITTLE EARLY</string>
+    <string name="timing_late">A LITTLE LATE</string>
+    <string name="pause_title">Paused</string>
+    <string name="pause_message">Abandon this chase? It won\'t be saved to your history.</string>
+    <string name="pause_resume">Resume</string>
+    <string name="pause_quit">Abandon</string>
+
+    <!-- Summary -->
+    <string name="summary_victory">VICTORY</string>
+    <string name="summary_defeat">DEFEAT</string>
+    <string name="summary_tied">TIED</string>
+    <string name="summary_score">%1$d/%2$d</string>
+    <string name="summary_overs">%1$s of %2$d overs</string>
+    <string name="summary_target">Target %d</string>
+    <string name="summary_meta">%1$s · %2$s · %3$s</string>
+    <string name="summary_batting_card">Batting card</string>
+    <string name="summary_runs">Runs</string>
+    <string name="summary_balls">Balls</string>
+    <string name="summary_strike_rate">Strike rate</string>
+    <string name="summary_fours">Fours</string>
+    <string name="summary_sixes">Sixes</string>
+    <string name="summary_dots">Dot balls</string>
+    <string name="summary_extras">Extras %1$d · Run rate %2$s</string>
+    <string name="summary_chart_title">Over by over</string>
+    <string name="summary_chart_legend">Bars show runs per over · red dots are wickets</string>
+    <string name="summary_play_again">Play again</string>
+    <string name="summary_home">Home</string>
+    <string name="summary_close">Close</string>
+
+    <!-- History -->
+    <string name="history_title">Match history</string>
+    <string name="history_filter_all">All</string>
+    <string name="history_filter_won">Won</string>
+    <string name="history_filter_lost">Lost</string>
+    <string name="history_filter_challenges">Challenges</string>
+    <string name="history_matchup">%1$s vs %2$s</string>
+    <string name="history_score">%1$d/%2$d (%3$s)</string>
+    <string name="history_won">WON</string>
+    <string name="history_lost">LOST</string>
+    <string name="history_tied">TIED</string>
+    <string name="history_deleted">Match removed from history</string>
+    <string name="history_empty_title">No chases yet</string>
+    <string name="history_empty_filtered">No matches for this filter</string>
+    <string name="history_empty_body">Your completed matches will show up here with the full scorecard.</string>
+    <string name="history_empty_cta">Play your first chase</string>
+    <string name="history_swipe_hint">Swipe a match to delete it</string>
+
+    <!-- Stats -->
+    <string name="stats_title">Career stats</string>
+    <string name="stats_matches">Matches</string>
+    <string name="stats_wins">Wins</string>
+    <string name="stats_highest">Highest score</string>
+    <string name="stats_sixes">Total sixes</string>
+    <string name="stats_fours">Total fours</string>
+    <string name="stats_challenges">Challenges won</string>
+    <string name="stats_win_rate">Win rate</string>
+    <string name="stats_percent">%d%%</string>
+    <string name="stats_breakdown">%1$d won · %2$d lost · %3$d tied</string>
+    <string name="stats_career_line">%1$d runs off %2$d balls · SR %3$s</string>
+    <string name="stats_best_title">Best scores</string>
+    <string name="stats_best_score">%1$d/%2$d (%3$d)</string>
+    <string name="stats_best_detail">vs %1$s · %2$s</string>
+    <string name="stats_empty_title">No stats yet</string>
+    <string name="stats_empty_body">Finish a chase to start building your career record.</string>
+
+    <!-- How to play -->
+    <string name="howto_title">How to play</string>
+    <string name="howto_controls_title">Controls</string>
+    <string name="howto_controls_body">The bowler runs in and the ball travels down the pitch. A yellow ring closes on the hitting zone in front of the batter. Tap or swipe at the moment the ring reaches the inner circle, when it flashes green.</string>
+    <string name="howto_direction_title">Shot direction</string>
+    <string name="howto_direction_body">Tap the left third of the pitch or swipe left to play to the leg side. Tap the middle or swipe up to hit straight. Tap the right third or swipe right for the off side. Hitting with the line (straight balls straight, outside off to the off side, balls on the pads to leg) gives you more power. Short balls can always be pulled to leg.</string>
+    <string name="howto_timing_title">Timing</string>
+    <string name="howto_timing_body">Perfect timing gives you full power: sixes and fours. Early or late contact still scores, mostly ones and twos. Swing outside the window and you miss. Straight balls you miss or leave will often hit the stumps. Yorkers are hard to get under, so they cost one level of power.</string>
+    <string name="howto_timing_windows">Timing windows for medium pace (perfect / playable, ± milliseconds):\n%1$s\n%2$s\n%3$s\nSpinners give you about 15%% more time, fast bowlers about 10%% less.</string>
+    <string name="howto_window_value">• %1$s: ±%2$d ms / ±%3$d ms</string>
+    <string name="howto_field_title">Reading the field</string>
+    <string name="howto_field_body">Fielders are the dots around the ground. Each over the captain picks a field. Attacking fields leave the boundary open but crowd the inner ring, so they take more catches. Boundary riders turn fours into twos and can catch big hits in the deep. Look at the gaps before the ball is bowled.</string>
+    <string name="howto_scoring_title">Scoring</string>
+    <string name="howto_scoring_body">Shots can score a dot, 1, 2, 3, 4 or 6. You can be out caught, bowled or run out. On a run-out you are credited the single you completed. A wide adds one run and has to be bowled again, so only six legal balls make an over.</string>
+    <string name="howto_wickets_title">Wickets in short chases</string>
+    <string name="howto_wickets_rule">Ten wickets would make tiny chases too easy, so the number of wickets you have depends on the overs:\n• 1 over: %1$d wickets\n• 2 overs: %2$d wickets\n• 5 overs: %3$d wickets\nYour innings ends when you reach the target, lose all your wickets or run out of balls. Finishing one run short is a tie.</string>
+    <string name="howto_bowlers_title">Bowlers</string>
+    <string name="howto_bowlers">• Pace: %1$d to %2$d km/h. Fast, with a little seam movement.\n• Medium: %3$d to %4$d km/h. Accurate, with some swing.\n• Spin: %5$d to %6$d km/h. Slow through the air with big turn off the pitch.\nThe game shows the bowler\'s name, type and speed before every ball.</string>
+    <string name="howto_modes_title">Modes</string>
+    <string name="howto_modes_body">Quick Chase gives you a random target for your overs and difficulty. Daily Challenge comes from the tournament feed: a fixed opponent, target and bowling plan that changes each day. Win it to mark it completed.</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_gameplay">Gameplay</string>
+    <string name="settings_default_difficulty">Default difficulty</string>
+    <string name="settings_default_overs">Default overs</string>
+    <string name="settings_vibration">Vibration</string>
+    <string name="settings_vibration_caption">Haptics for shots, boundaries and wickets</string>
+    <string name="settings_appearance">Appearance</string>
+    <string name="settings_theme">Theme</string>
+    <string name="theme_system">System</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
+    <string name="settings_data">Data</string>
+    <string name="settings_reset">Reset match history</string>
+    <string name="settings_reset_caption">Deletes all saved matches and stats</string>
+    <string name="settings_reset_title">Reset history?</string>
+    <string name="settings_reset_message">This permanently deletes every saved match, best score and career stat.</string>
+    <string name="settings_reset_confirm">Delete all</string>
+    <string name="settings_reset_done">Match history cleared</string>
+    <string name="settings_version">StrikeZone Cricket v%s · Made with Java</string>
+</resources>

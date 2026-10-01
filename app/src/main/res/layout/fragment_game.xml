@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/night_900">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- Scoreboard HUD -->
+        <LinearLayout
+            android:id="@+id/hud"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="@dimen/space_m"
+            android:paddingTop="@dimen/space_s"
+            android:paddingEnd="@dimen/space_m">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/pauseButton"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/bg_pill"
+                    android:contentDescription="@string/game_pause"
+                    android:src="@drawable/ic_pause"
+                    app:tint="@color/white" />
+
+                <TextView
+                    android:id="@+id/modeChip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_s"
+                    android:background="@drawable/bg_pill"
+                    android:paddingStart="@dimen/space_m"
+                    android:paddingTop="@dimen/space_xs"
+                    android:paddingEnd="@dimen/space_m"
+                    android:paddingBottom="@dimen/space_xs"
+                    android:textAppearance="?attr/textAppearanceLabelMedium"
+                    android:textColor="@color/floodlight_yellow" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/fieldChip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_pill"
+                    android:paddingStart="@dimen/space_m"
+                    android:paddingTop="@dimen/space_xs"
+                    android:paddingEnd="@dimen/space_m"
+                    android:paddingBottom="@dimen/space_xs"
+                    android:textAppearance="?attr/textAppearanceLabelMedium"
+                    android:textColor="@color/white_70" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_s"
+                android:background="@drawable/bg_hud"
+                android:orientation="vertical"
+                android:paddingStart="@dimen/space_l"
+                android:paddingTop="@dimen/space_m"
+                android:paddingEnd="@dimen/space_l"
+                android:paddingBottom="@dimen/space_m">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/teamBadge"
+                        android:layout_width="@dimen/badge_s"
+                        android:layout_height="@dimen/badge_s"
+                        android:fontFamily="sans-serif-condensed"
+                        android:gravity="center"
+                        android:importantForAccessibility="no"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_m"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/teamName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:textAppearance="?attr/textAppearanceLabelMedium"
+                            android:textColor="@color/white_70" />
+
+                        <TextView
+                            android:id="@+id/score"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:includeFontPadding="false"
+                            android:textAppearance="@style/TextAppearance.StrikeZone.Score"
+                            android:textColor="@color/floodlight_yellow" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/overs"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:includeFontPadding="false"
+                            android:textAppearance="@style/TextAppearance.StrikeZone.Score"
+                            android:textColor="@color/white" />
+
+                        <TextView
+                            android:id="@+id/oversLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="@style/TextAppearance.StrikeZone.HudLabel" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <com.google.android.material.progressindicator.LinearProgressIndicator
+                    android:id="@+id/chaseProgress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_s"
+                    android:max="100"
+                    app:indicatorColor="@color/grass_green"
+                    app:trackColor="@color/white_12"
+                    app:trackCornerRadius="4dp"
+                    app:trackThickness="6dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_s"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/target"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?attr/textAppearanceLabelLarge"
+                        android:textColor="@color/floodlight_yellow"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/equation"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_s"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:gravity="end"
+                        android:maxLines="1"
+                        android:textAppearance="?attr/textAppearanceLabelLarge"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_s"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/game_crr"
+                        android:textAppearance="@style/TextAppearance.StrikeZone.HudLabel" />
+
+                    <TextView
+                        android:id="@+id/crr"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_xs"
+                        android:textAppearance="@style/TextAppearance.StrikeZone.HudValue" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_l"
+                        android:text="@string/game_rrr"
+                        android:textAppearance="@style/TextAppearance.StrikeZone.HudLabel" />
+
+                    <TextView
+                        android:id="@+id/rrr"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_xs"
+                        android:textAppearance="@style/TextAppearance.StrikeZone.HudValue" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_l"
+                        android:text="@string/game_wickets"
+                        android:textAppearance="@style/TextAppearance.StrikeZone.HudLabel" />
+
+                    <TextView
+                        android:id="@+id/wickets"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_xs"
+                        android:textAppearance="@style/TextAppearance.StrikeZone.HudValue"
+                        android:textColor="@color/wicket_red" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_s"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/space_s"
+                        android:text="@string/game_this_over"
+                        android:textAppearance="@style/TextAppearance.StrikeZone.HudLabel" />
+
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scrollbars="none">
+
+                        <LinearLayout
+                            android:id="@+id/thisOverChips"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:animateLayoutChanges="true"
+                            android:orientation="horizontal" />
+                    </HorizontalScrollView>
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/bowlerLine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/space_s"
+                android:background="@drawable/bg_pill"
+                android:drawablePadding="@dimen/space_xs"
+                android:gravity="center_vertical"
+                android:paddingStart="@dimen/space_m"
+                android:paddingTop="@dimen/space_xs"
+                android:paddingEnd="@dimen/space_m"
+                android:paddingBottom="@dimen/space_xs"
+                android:textAppearance="?attr/textAppearanceLabelMedium"
+                android:textColor="@color/white" />
+        </LinearLayout>
+
+        <io.github.ieswar23.strikezone.ui.game.PitchView
+            android:id="@+id/pitch"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <!-- Shot direction legend -->
+        <LinearLayout
+            android:id="@+id/controls"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingStart="@dimen/space_m"
+            android:paddingEnd="@dimen/space_m"
+            android:paddingBottom="@dimen/space_m">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/dirLeg"
+                    style="@style/DirectionLabel"
+                    android:text="@string/game_dir_leg" />
+
+                <TextView
+                    android:id="@+id/dirStraight"
+                    style="@style/DirectionLabel"
+                    android:layout_marginStart="@dimen/space_s"
+                    android:layout_marginEnd="@dimen/space_s"
+                    android:text="@string/game_dir_straight" />
+
+                <TextView
+                    android:id="@+id/dirOff"
+                    style="@style/DirectionLabel"
+                    android:text="@string/game_dir_off" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_xs"
+                android:text="@string/game_hint"
+                android:textAppearance="?attr/textAppearanceLabelSmall"
+                android:textColor="@color/white_50" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- End-of-over banner -->
+    <TextView
+        android:id="@+id/banner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="@dimen/space_xl"
+        android:layout_marginEnd="@dimen/space_xl"
+        android:layout_marginBottom="120dp"
+        android:background="@drawable/bg_banner"
+        android:gravity="center"
+        android:lineSpacingExtra="4dp"
+        android:padding="@dimen/space_l"
+        android:textAppearance="?attr/textAppearanceTitleSmall"
+        android:textColor="@color/white"
+        android:visibility="gone" />
+
+    <!-- Outcome popup -->
+    <LinearLayout
+        android:id="@+id/outcomePopup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="invisible">
+
+        <TextView
+            android:id="@+id/timingLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/space_xs"
+            android:background="@drawable/bg_pill"
+            android:letterSpacing="0.2"
+            android:paddingStart="@dimen/space_m"
+            android:paddingTop="@dimen/space_xs"
+            android:paddingEnd="@dimen/space_m"
+            android:paddingBottom="@dimen/space_xs"
+            android:shadowColor="#CC000000"
+            android:shadowRadius="8"
+            android:textAppearance="?attr/textAppearanceLabelMedium"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/outcomeHeadline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-black"
+            android:shadowColor="#E6000000"
+            android:shadowDy="3"
+            android:shadowRadius="14"
+            android:textSize="56sp"
+            android:textStyle="italic" />
+
+        <TextView
+            android:id="@+id/outcomeDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_xl"
+            android:layout_marginEnd="@dimen/space_xl"
+            android:background="@drawable/bg_pill"
+            android:gravity="center"
+            android:paddingStart="@dimen/space_m"
+            android:paddingTop="@dimen/space_xs"
+            android:paddingEnd="@dimen/space_m"
+            android:paddingBottom="@dimen/space_xs"
+            android:textAppearance="?attr/textAppearanceBodyMedium"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+    <!-- Loading -->
+    <LinearLayout
+        android:id="@+id/loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/night_900"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            app:indicatorColor="@color/floodlight_yellow" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_m"
+            android:text="@string/game_loading"
+            android:textColor="@color/white_70" />
+    </LinearLayout>
+
+    <!-- Error -->
+    <LinearLayout
+        android:id="@+id/errorState"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/night_900"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="@dimen/space_xl"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/game_error"
+            android:textColor="@color/white" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/errorBack"
+            style="@style/Widget.StrikeZone.Button.Floodlight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_l"
+            android:text="@string/action_back" />
+    </LinearLayout>
+</FrameLayout>

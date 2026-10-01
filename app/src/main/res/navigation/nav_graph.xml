@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="io.github.ieswar23.strikezone.ui.home.HomeFragment"
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_home_to_setup"
+            app:destination="@id/setupFragment" />
+        <action
+            android:id="@+id/action_home_to_history"
+            app:destination="@id/historyFragment" />
+        <action
+            android:id="@+id/action_home_to_stats"
+            app:destination="@id/statsFragment" />
+        <action
+            android:id="@+id/action_home_to_howToPlay"
+            app:destination="@id/howToPlayFragment" />
+        <action
+            android:id="@+id/action_home_to_settings"
+            app:destination="@id/settingsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/setupFragment"
+        android:name="io.github.ieswar23.strikezone.ui.setup.MatchSetupFragment"
+        android:label="@string/setup_title"
+        tools:layout="@layout/fragment_setup">
+        <argument
+            android:name="mode"
+            android:defaultValue="QUICK_CHASE"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_setup_to_game"
+            app:destination="@id/gameFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/gameFragment"
+        android:name="io.github.ieswar23.strikezone.ui.game.GameFragment"
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_game">
+        <argument
+            android:name="battingTeamId"
+            app:argType="string" />
+        <argument
+            android:name="bowlingTeamId"
+            app:argType="string" />
+        <argument
+            android:name="overs"
+            app:argType="integer" />
+        <argument
+            android:name="target"
+            app:argType="integer" />
+        <argument
+            android:name="difficulty"
+            app:argType="string" />
+        <argument
+            android:name="mode"
+            app:argType="string" />
+        <argument
+            android:name="challengeId"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="bowlerFocus"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_game_to_summary"
+            app:destination="@id/summaryFragment"
+            app:popUpTo="@id/gameFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/summaryFragment"
+        android:name="io.github.ieswar23.strikezone.ui.summary.SummaryFragment"
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_summary">
+        <argument
+            android:name="matchId"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_summary_to_game"
+            app:destination="@id/gameFragment"
+            app:popUpTo="@id/summaryFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="io.github.ieswar23.strikezone.ui.history.HistoryFragment"
+        android:label="@string/history_title"
+        tools:layout="@layout/fragment_history">
+        <action
+            android:id="@+id/action_history_to_summary"
+            app:destination="@id/summaryFragment" />
+        <action
+            android:id="@+id/action_history_to_setup"
+            app:destination="@id/setupFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/statsFragment"
+        android:name="io.github.ieswar23.strikezone.ui.stats.StatsFragment"
+        android:label="@string/stats_title"
+        tools:layout="@layout/fragment_stats" />
+
+    <fragment
+        android:id="@+id/howToPlayFragment"
+        android:name="io.github.ieswar23.strikezone.ui.howto.HowToPlayFragment"
+        android:label="@string/howto_title"
+        tools:layout="@layout/fragment_how_to_play" />
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="io.github.ieswar23.strikezone.ui.settings.SettingsFragment"
+        android:label="@string/settings_title"
+        tools:layout="@layout/fragment_settings" />
+</navigation>
