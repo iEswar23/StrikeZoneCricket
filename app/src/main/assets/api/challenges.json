@@ -1,0 +1,101 @@
+{
+  "generatedAt": "2026-09-28T06:00:00Z",
+  "challenges": [
+    {
+      "id": "dc-001",
+      "dayIndex": 0,
+      "title": "Death-Over Heist",
+      "description": "Sydney's quicks are bowling yorkers at the death. Smash 19 off the final over.",
+      "overs": 1,
+      "target": 19,
+      "difficulty": "MEDIUM",
+      "opponentId": "syd",
+      "bowlerFocus": "PACE",
+      "badge": "⚡"
+    },
+    {
+      "id": "dc-002",
+      "dayIndex": 1,
+      "title": "Spin Web in Colombo",
+      "description": "Three tweakers, a turning track and 24 to get. Use your feet and play with the spin.",
+      "overs": 2,
+      "target": 24,
+      "difficulty": "MEDIUM",
+      "opponentId": "col",
+      "bowlerFocus": "SPIN",
+      "badge": "🌀"
+    },
+    {
+      "id": "dc-003",
+      "dayIndex": 2,
+      "title": "Five-Over Thriller",
+      "description": "The Lions have posted a competitive total. Chase 57 in five overs under lights.",
+      "overs": 5,
+      "target": 57,
+      "difficulty": "MEDIUM",
+      "opponentId": "lon",
+      "bowlerFocus": "MIXED",
+      "badge": "🏟️"
+    },
+    {
+      "id": "dc-004",
+      "dayIndex": 3,
+      "title": "Highveld Pace Test",
+      "description": "Thin air, quick pitch, fast bowlers. 27 needed from two overs on Hard.",
+      "overs": 2,
+      "target": 27,
+      "difficulty": "HARD",
+      "opponentId": "joh",
+      "bowlerFocus": "PACE",
+      "badge": "🔥"
+    },
+    {
+      "id": "dc-005",
+      "dayIndex": 4,
+      "title": "Chepauk Grind",
+      "description": "Chennai's spinners squeeze the run rate. Keep the scoreboard ticking and chase 49.",
+      "overs": 5,
+      "target": 49,
+      "difficulty": "EASY",
+      "opponentId": "che",
+      "bowlerFocus": "SPIN",
+      "badge": "🎯"
+    },
+    {
+      "id": "dc-006",
+      "dayIndex": 5,
+      "title": "Caribbean Carnival",
+      "description": "Kingston want a party. Hit the sixes they came to see: 16 off one over.",
+      "overs": 1,
+      "target": 16,
+      "difficulty": "EASY",
+      "opponentId": "kin",
+      "bowlerFocus": "MIXED",
+      "badge": "🎉"
+    },
+    {
+      "id": "dc-007",
+      "dayIndex": 6,
+      "title": "Karachi Swing Show",
+      "description": "Two left-arm quicks are swinging it late. 66 off five overs on Hard. Good luck.",
+      "overs": 5,
+      "target": 66,
+      "difficulty": "HARD",
+      "opponentId": "kar",
+      "bowlerFocus": "PACE",
+      "badge": "🏆"
+    },
+    {
+      "id": "dc-008",
+      "dayIndex": 7,
+      "title": "Marine Drive Mayhem",
+      "description": "The Mavericks have set 25 in two overs. Play the line, find the gaps.",
+      "overs": 2,
+      "target": 25,
+      "difficulty": "MEDIUM",
+      "opponentId": "mum",
+      "bowlerFocus": "MIXED",
+      "badge": "🌊"
+    }
+  ]
+}

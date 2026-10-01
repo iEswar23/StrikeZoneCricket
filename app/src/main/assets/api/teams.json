@@ -1,0 +1,150 @@
+{
+  "tournament": "StrikeZone World Series",
+  "season": "2026",
+  "teams": [
+    {
+      "id": "mum",
+      "name": "Mumbai Mavericks",
+      "shortName": "MUM",
+      "city": "Mumbai",
+      "primaryColor": "#1E6FD9",
+      "secondaryColor": "#FFD23F",
+      "captain": "Arjun Deshpande",
+      "homeGround": "Marine Drive Oval",
+      "rating": 88,
+      "bowlers": [
+        {"name": "Rohan Kulkarni", "type": "PACE"},
+        {"name": "Imran Shaikh", "type": "MEDIUM"},
+        {"name": "Siddharth Rane", "type": "SPIN"},
+        {"name": "Kabir Mehta", "type": "PACE"},
+        {"name": "Tanmay Joshi", "type": "SPIN"}
+      ]
+    },
+    {
+      "id": "che",
+      "name": "Chennai Chargers",
+      "shortName": "CHE",
+      "city": "Chennai",
+      "primaryColor": "#F2B705",
+      "secondaryColor": "#0B2A6F",
+      "captain": "Karthik Raghavan",
+      "homeGround": "Bay of Bengal Stadium",
+      "rating": 86,
+      "bowlers": [
+        {"name": "Vignesh Iyer", "type": "SPIN"},
+        {"name": "Pradeep Natarajan", "type": "PACE"},
+        {"name": "Ashwath Murali", "type": "SPIN"},
+        {"name": "Dinesh Subramanian", "type": "MEDIUM"},
+        {"name": "Hari Venkatesh", "type": "PACE"}
+      ]
+    },
+    {
+      "id": "lon",
+      "name": "London Lions",
+      "shortName": "LON",
+      "city": "London",
+      "primaryColor": "#C8102E",
+      "secondaryColor": "#F5F5F5",
+      "captain": "Oliver Hastings",
+      "homeGround": "Thames Bank Ground",
+      "rating": 85,
+      "bowlers": [
+        {"name": "Harry Whitmore", "type": "PACE"},
+        {"name": "Samir Choudhury", "type": "SPIN"},
+        {"name": "Tom Pemberton", "type": "MEDIUM"},
+        {"name": "Jack Ellison", "type": "PACE"},
+        {"name": "Liam Ashcroft", "type": "MEDIUM"}
+      ]
+    },
+    {
+      "id": "syd",
+      "name": "Sydney Strikers",
+      "shortName": "SYD",
+      "city": "Sydney",
+      "primaryColor": "#00A6B4",
+      "secondaryColor": "#1B1F3B",
+      "captain": "Mitchell Barrett",
+      "homeGround": "Harbourside Park",
+      "rating": 87,
+      "bowlers": [
+        {"name": "Josh Callaghan", "type": "PACE"},
+        {"name": "Nathan Doyle", "type": "PACE"},
+        {"name": "Ryan Kowalski", "type": "SPIN"},
+        {"name": "Cooper Hale", "type": "MEDIUM"},
+        {"name": "Daniel Moretti", "type": "PACE"}
+      ]
+    },
+    {
+      "id": "kar",
+      "name": "Karachi Kestrels",
+      "shortName": "KAR",
+      "city": "Karachi",
+      "primaryColor": "#1F8A4C",
+      "secondaryColor": "#E8F5E9",
+      "captain": "Faisal Qureshi",
+      "homeGround": "Clifton Crescent Ground",
+      "rating": 84,
+      "bowlers": [
+        {"name": "Usman Tariq", "type": "PACE"},
+        {"name": "Hamza Siddiqui", "type": "PACE"},
+        {"name": "Zubair Anwar", "type": "SPIN"},
+        {"name": "Bilal Rasheed", "type": "MEDIUM"},
+        {"name": "Saad Malik", "type": "SPIN"}
+      ]
+    },
+    {
+      "id": "kin",
+      "name": "Kingston Hurricanes",
+      "shortName": "KIN",
+      "city": "Kingston",
+      "primaryColor": "#7B2CBF",
+      "secondaryColor": "#FFC300",
+      "captain": "Andre Campbell",
+      "homeGround": "Blue Mountain Arena",
+      "rating": 83,
+      "bowlers": [
+        {"name": "Marlon Grant", "type": "PACE"},
+        {"name": "Devon Reid", "type": "MEDIUM"},
+        {"name": "Shane Whyte", "type": "SPIN"},
+        {"name": "Kemar Lewis", "type": "PACE"},
+        {"name": "Odean Brown", "type": "MEDIUM"}
+      ]
+    },
+    {
+      "id": "joh",
+      "name": "Johannesburg Jaguars",
+      "shortName": "JOH",
+      "city": "Johannesburg",
+      "primaryColor": "#F26B1D",
+      "secondaryColor": "#14213D",
+      "captain": "Pieter van Wyk",
+      "homeGround": "Highveld Bowl",
+      "rating": 85,
+      "bowlers": [
+        {"name": "Sipho Ndlovu", "type": "PACE"},
+        {"name": "Ruan Botha", "type": "PACE"},
+        {"name": "Keshav Pillay", "type": "SPIN"},
+        {"name": "Thabo Mokoena", "type": "MEDIUM"},
+        {"name": "Wian du Plessis", "type": "PACE"}
+      ]
+    },
+    {
+      "id": "col",
+      "name": "Colombo Cyclones",
+      "shortName": "COL",
+      "city": "Colombo",
+      "primaryColor": "#0F4C81",
+      "secondaryColor": "#5FD068",
+      "captain": "Dhananjaya Perera",
+      "homeGround": "Galle Face Grounds",
+      "rating": 82,
+      "bowlers": [
+        {"name": "Nuwan Jayasinghe", "type": "SPIN"},
+        {"name": "Lahiru Fernando", "type": "PACE"},
+        {"name": "Chamika Silva", "type": "SPIN"},
+        {"name": "Kasun Wickramasinghe", "type": "MEDIUM"},
+        {"name": "Pathum Rajapaksha", "type": "SPIN"}
+      ]
+    }
+  ]
+}
