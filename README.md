@@ -2,6 +2,7 @@
 
 An arcade cricket batting game for Android. You chase a target under floodlights over a few overs, and you score by timing each shot and picking a direction.
 
+[![Android CI](https://github.com/iEswar23/StrikeZoneCricket/actions/workflows/android-ci.yml/badge.svg)](https://github.com/iEswar23/StrikeZoneCricket/actions/workflows/android-ci.yml)
 ![Java](https://img.shields.io/badge/Java-17-ED8B00?logo=openjdk&logoColor=white)
 ![XML Views](https://img.shields.io/badge/UI-XML%20Views-3DDC84?logo=android&logoColor=white)
 ![MVVM](https://img.shields.io/badge/Architecture-MVVM-1A2A52)
