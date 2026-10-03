@@ -164,6 +164,68 @@
             </LinearLayout>
         </FrameLayout>
 
+        <!-- Badges this match unlocked (hidden when there are none) -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/badgeBanner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_m"
+            android:layout_marginTop="@dimen/space_m"
+            android:layout_marginEnd="@dimen/space_m"
+            android:clickable="true"
+            android:focusable="true"
+            android:visibility="gone"
+            app:cardBackgroundColor="@color/night_800"
+            app:cardCornerRadius="@dimen/corner_m"
+            app:strokeColor="@color/floodlight_yellow"
+            app:strokeWidth="1.5dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_night_gradient"
+                android:orientation="vertical"
+                android:paddingStart="@dimen/space_l"
+                android:paddingTop="@dimen/space_m"
+                android:paddingEnd="@dimen/space_l"
+                android:paddingBottom="@dimen/space_m">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/badgeBannerTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawablePadding="@dimen/space_s"
+                        android:gravity="center_vertical"
+                        android:textAppearance="?attr/textAppearanceTitleMedium"
+                        android:textColor="@color/floodlight_yellow"
+                        android:textStyle="bold"
+                        app:drawableStartCompat="@drawable/ic_trophy"
+                        app:drawableTint="@color/floodlight_yellow" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/summary_badge_view_all"
+                        android:textAppearance="?attr/textAppearanceLabelLarge"
+                        android:textColor="@color/white_70" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/badgeBannerList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_xs"
+                    android:orientation="vertical" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
         <!-- Batting card -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"

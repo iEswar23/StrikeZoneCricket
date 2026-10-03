@@ -19,6 +19,7 @@ import javax.inject.Inject;
 import dagger.hilt.android.AndroidEntryPoint;
 import io.github.ieswar23.strikezone.BuildConfig;
 import io.github.ieswar23.strikezone.R;
+import io.github.ieswar23.strikezone.data.repository.AchievementRepository;
 import io.github.ieswar23.strikezone.data.repository.MatchRepository;
 import io.github.ieswar23.strikezone.data.settings.AppSettings;
 import io.github.ieswar23.strikezone.databinding.FragmentSettingsBinding;
@@ -32,6 +33,8 @@ public class SettingsFragment extends Fragment {
     AppSettings settings;
     @Inject
     MatchRepository matchRepository;
+    @Inject
+    AchievementRepository achievementRepository;
 
     private FragmentSettingsBinding binding;
 
@@ -90,6 +93,7 @@ public class SettingsFragment extends Fragment {
                 .setNegativeButton(android.R.string.cancel, null)
                 .setPositiveButton(R.string.settings_reset_confirm, (dialog, which) -> {
                     matchRepository.clearAll();
+                    achievementRepository.clearAll();
                     Snackbar.make(binding.getRoot(), R.string.settings_reset_done, Snackbar.LENGTH_SHORT).show();
                 })
                 .show());

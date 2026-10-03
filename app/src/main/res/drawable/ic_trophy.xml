@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- A round-bowled trophy cup with looped handles. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:tint="?attr/colorControlNormal"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M6,3H18V8A6,6 0,0 1,6,8ZM10.9,13.5h2.2v5.2h-2.2zM7.5,18.5h9v2.5h-9z" />
+    <path
+        android:pathData="M6,5H4.4Q3,5 3,6.5Q3,10.3 7,11.3M18,5H19.6Q21,5 21,6.5Q21,10.3 17,11.3"
+        android:strokeWidth="1.7"
+        android:strokeColor="@android:color/white"
+        android:strokeLineCap="round" />
+</vector>

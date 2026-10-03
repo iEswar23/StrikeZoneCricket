@@ -12,6 +12,7 @@ import dagger.hilt.InstallIn;
 import dagger.hilt.android.qualifiers.ApplicationContext;
 import dagger.hilt.components.SingletonComponent;
 import io.github.ieswar23.strikezone.data.local.AppDatabase;
+import io.github.ieswar23.strikezone.data.local.dao.AchievementDao;
 import io.github.ieswar23.strikezone.data.local.dao.ChallengeDao;
 import io.github.ieswar23.strikezone.data.local.dao.MatchDao;
 import io.github.ieswar23.strikezone.data.local.dao.TeamDao;
@@ -27,6 +28,7 @@ public final class DatabaseModule {
     @Singleton
     static AppDatabase provideDatabase(@ApplicationContext Context context) {
         return Room.databaseBuilder(context, AppDatabase.class, AppDatabase.NAME)
+                .addMigrations(AppDatabase.MIGRATION_1_2)
                 .fallbackToDestructiveMigration()
                 .build();
     }
@@ -44,5 +46,10 @@ public final class DatabaseModule {
     @Provides
     static MatchDao provideMatchDao(AppDatabase db) {
         return db.matchDao();
+    }
+
+    @Provides
+    static AchievementDao provideAchievementDao(AppDatabase db) {
+        return db.achievementDao();
     }
 }

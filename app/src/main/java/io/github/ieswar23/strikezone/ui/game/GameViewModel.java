@@ -15,6 +15,7 @@ import javax.inject.Inject;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
 import io.github.ieswar23.strikezone.data.local.entity.MatchEntity;
+import io.github.ieswar23.strikezone.data.repository.AchievementRepository;
 import io.github.ieswar23.strikezone.data.repository.CricketRepository;
 import io.github.ieswar23.strikezone.data.repository.MatchRepository;
 import io.github.ieswar23.strikezone.domain.model.MatchSetup;
@@ -50,6 +51,7 @@ public class GameViewModel extends ViewModel {
 
     private final CricketRepository cricketRepository;
     private final MatchRepository matchRepository;
+    private final AchievementRepository achievementRepository;
     private final AppExecutors executors;
     private final Random random;
     private final MatchSetup setup;
@@ -75,9 +77,11 @@ public class GameViewModel extends ViewModel {
 
     @Inject
     public GameViewModel(SavedStateHandle handle, CricketRepository cricketRepository,
-                         MatchRepository matchRepository, AppExecutors executors, Random random) {
+                         MatchRepository matchRepository, AchievementRepository achievementRepository,
+                         AppExecutors executors, Random random) {
         this.cricketRepository = cricketRepository;
         this.matchRepository = matchRepository;
+        this.achievementRepository = achievementRepository;
         this.executors = executors;
         this.random = random;
         this.setup = MatchSetup.fromSavedState(handle);
@@ -240,11 +244,12 @@ public class GameViewModel extends ViewModel {
     private void saveMatch() {
         if (saving || savedMatchId != null) return;
         saving = true;
-        matchRepository.save(buildEntity(), id -> {
+        // Badges are checked before leaving the game so the summary can show what this match unlocked.
+        matchRepository.save(buildEntity(), id -> achievementRepository.checkUnlocks(id, unlocked -> {
             savedMatchId = id;
             saving = false;
             finished.setValue(new Event<>(id));
-        });
+        }));
     }
 
     MatchEntity buildEntity() {
@@ -273,6 +278,9 @@ public class GameViewModel extends ViewModel {
         e.sixes = engine.getSixes();
         e.dots = engine.getDots();
         e.extras = engine.getExtras();
+        e.perfectShots = engine.getPerfectShots();
+        e.maxSixesInOver = engine.maxSixesInOver();
+        e.scoringOvers = engine.scoringOvers();
         e.won = engine.getStatus() == MatchStatus.WON;
         e.tied = engine.getStatus() == MatchStatus.TIED;
         e.resultText = ScoreCalculator.resultText(engine, batting.getName(), bowling.getName());

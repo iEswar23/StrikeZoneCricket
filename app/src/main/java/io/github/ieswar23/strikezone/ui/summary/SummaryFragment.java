@@ -16,24 +16,30 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.google.android.material.transition.MaterialFadeThrough;
 
+import java.util.List;
+
 import dagger.hilt.android.AndroidEntryPoint;
 import io.github.ieswar23.strikezone.R;
 import io.github.ieswar23.strikezone.data.local.entity.MatchEntity;
 import io.github.ieswar23.strikezone.databinding.FragmentSummaryBinding;
+import io.github.ieswar23.strikezone.databinding.ItemBadgeUnlockedBinding;
+import io.github.ieswar23.strikezone.domain.achievements.Achievement;
 import io.github.ieswar23.strikezone.domain.model.GameMode;
 import io.github.ieswar23.strikezone.engine.Difficulty;
 import io.github.ieswar23.strikezone.engine.ScoreCalculator;
+import io.github.ieswar23.strikezone.ui.achievements.BadgeIcons;
 import io.github.ieswar23.strikezone.ui.common.TeamBadge;
 import io.github.ieswar23.strikezone.util.Formatters;
 import io.github.ieswar23.strikezone.util.InsetsUtil;
 import io.github.ieswar23.strikezone.util.NavUtils;
 
-/** Post-match summary: result, batting card and Manhattan chart. */
+/** Post-match summary: result, any badges unlocked, batting card and Manhattan chart. */
 @AndroidEntryPoint
 public class SummaryFragment extends Fragment {
     private FragmentSummaryBinding binding;
     private SummaryViewModel viewModel;
     private boolean animatedIn;
+    private boolean badgesAnimatedIn;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -65,6 +71,35 @@ public class SummaryFragment extends Fragment {
         viewModel.getMatch().observe(getViewLifecycleOwner(), match -> {
             if (match != null) render(match);
         });
+        binding.badgeBanner.setOnClickListener(v -> NavUtils.navigateSafely(NavHostFragment.findNavController(this),
+                R.id.action_summary_to_achievements, null));
+        viewModel.getNewBadges().observe(getViewLifecycleOwner(), this::renderBadges);
+    }
+
+    private void renderBadges(List<Achievement> badges) {
+        boolean any = badges != null && !badges.isEmpty();
+        binding.badgeBanner.setVisibility(any ? View.VISIBLE : View.GONE);
+        if (!any) return;
+        binding.badgeBannerTitle.setText(getResources().getQuantityString(R.plurals.summary_badge_title,
+                badges.size(), badges.size()));
+        binding.badgeBannerList.removeAllViews();
+        LayoutInflater inflater = getLayoutInflater();
+        for (Achievement a : badges) {
+            ItemBadgeUnlockedBinding row = ItemBadgeUnlockedBinding.inflate(inflater, binding.badgeBannerList, false);
+            BadgeIcons.bind(row.medal, a, true);
+            row.title.setText(a.getTitle());
+            row.description.setText(a.getDescription());
+            binding.badgeBannerList.addView(row.getRoot());
+        }
+        if (!badgesAnimatedIn) {
+            badgesAnimatedIn = true;
+            View banner = binding.badgeBanner;
+            banner.setAlpha(0f);
+            banner.setScaleX(0.85f);
+            banner.setScaleY(0.85f);
+            banner.animate().alpha(1f).scaleX(1f).scaleY(1f).setStartDelay(350).setDuration(450)
+                    .setInterpolator(new OvershootInterpolator(1.8f)).start();
+        }
     }
 
     private void goHome() {

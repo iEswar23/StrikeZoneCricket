@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Badge glyph: A ball soaring into the stands, with its flight trail. Tinted at runtime (gold when unlocked, muted when locked). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:tint="?attr/colorControlNormal"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="@android:color/white"
+        android:fillType="evenOdd"
+        android:pathData="M2.8,19a2.2,2.2 0,1 1,4.4,0a2.2,2.2 0,1 1,-4.4,0zM7.6,13.4a3,3 0,1 1,6,0a3,3 0,1 1,-6,0zM13.6,6.6a4,4 0,1 1,8,0a4,4 0,1 1,-8,0zM15.75,3.4Q19.8,6.6 15.75,9.8Q17.6,6.6 15.75,3.4z" />
+</vector>

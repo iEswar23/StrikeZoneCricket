@@ -8,9 +8,11 @@ import javax.inject.Inject;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
 import io.github.ieswar23.strikezone.data.local.MatchStats;
+import io.github.ieswar23.strikezone.data.repository.AchievementRepository;
 import io.github.ieswar23.strikezone.data.repository.CricketRepository;
 import io.github.ieswar23.strikezone.data.repository.MatchRepository;
 import io.github.ieswar23.strikezone.domain.model.DailyChallenge;
+import io.github.ieswar23.strikezone.ui.achievements.AchievementsUiState;
 import io.github.ieswar23.strikezone.util.Formatters;
 import io.github.ieswar23.strikezone.util.LiveDataUtils;
 import io.github.ieswar23.strikezone.util.SyncState;
@@ -22,9 +24,11 @@ public class HomeViewModel extends ViewModel {
     private final LiveData<UiState<DailyChallenge>> challenge;
     private final LiveData<Boolean> challengeCompleted;
     private final LiveData<MatchStats> stats;
+    private final LiveData<AchievementsUiState> achievements;
 
     @Inject
-    public HomeViewModel(CricketRepository cricketRepository, MatchRepository matchRepository) {
+    public HomeViewModel(CricketRepository cricketRepository, MatchRepository matchRepository,
+                         AchievementRepository achievementRepository) {
         this.cricketRepository = cricketRepository;
         LiveData<DailyChallenge> today = LiveDataUtils.map(cricketRepository.observeChallenges(),
                 list -> DailyChallenge.forDay(list, Formatters.dayOfYear()));
@@ -34,6 +38,9 @@ public class HomeViewModel extends ViewModel {
             return LiveDataUtils.map(matchRepository.observeChallengeWins(c.getId()), wins -> wins != null && wins > 0);
         });
         this.stats = matchRepository.observeStats();
+        this.achievements = LiveDataUtils.map(achievementRepository.observeBadges(), AchievementsUiState::from);
+        // Matches saved by a version without achievements still earn their badges, so the tile count is right.
+        achievementRepository.checkUnlocks(0, null);
     }
 
     static UiState<DailyChallenge> toUiState(DailyChallenge challenge, SyncState sync) {
@@ -55,6 +62,11 @@ public class HomeViewModel extends ViewModel {
 
     public LiveData<MatchStats> getStats() {
         return stats;
+    }
+
+    /** Badge count for the Achievements tile. */
+    public LiveData<AchievementsUiState> getAchievements() {
+        return achievements;
     }
 
     public void retry() {

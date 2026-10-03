@@ -4,7 +4,9 @@ import dagger.Binds;
 import dagger.Module;
 import dagger.hilt.InstallIn;
 import dagger.hilt.components.SingletonComponent;
+import io.github.ieswar23.strikezone.data.repository.AchievementRepository;
 import io.github.ieswar23.strikezone.data.repository.CricketRepository;
+import io.github.ieswar23.strikezone.data.repository.DefaultAchievementRepository;
 import io.github.ieswar23.strikezone.data.repository.DefaultCricketRepository;
 import io.github.ieswar23.strikezone.data.repository.DefaultMatchRepository;
 import io.github.ieswar23.strikezone.data.repository.MatchRepository;
@@ -18,4 +20,7 @@ public abstract class RepositoryModule {
 
     @Binds
     abstract MatchRepository bindMatchRepository(DefaultMatchRepository impl);
+
+    @Binds
+    abstract AchievementRepository bindAchievementRepository(DefaultAchievementRepository impl);
 }

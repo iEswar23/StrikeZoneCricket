@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Badge glyph: A scoreboard "100" for a century of boundaries. Tinted at runtime (gold when unlocked, muted when locked). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:tint="?attr/colorControlNormal"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="@android:color/white"
+        android:fillType="evenOdd"
+        android:pathData="M2.3,6.6L4.5,5L6.7,5L6.7,19L4.5,19L4.5,7.8L2.3,9zM8.7,5L14.3,5L14.3,19L8.7,19zM10.9,7.2L10.9,16.8L12.1,16.8L12.1,7.2zM16.1,5L21.7,5L21.7,19L16.1,19zM18.3,7.2L18.3,16.8L19.5,16.8L19.5,7.2z" />
+</vector>

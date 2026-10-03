@@ -10,8 +10,11 @@ import java.util.List;
 
 import io.github.ieswar23.strikezone.data.local.MatchStats;
 import io.github.ieswar23.strikezone.data.local.entity.MatchEntity;
+import io.github.ieswar23.strikezone.data.repository.AchievementRepository;
 import io.github.ieswar23.strikezone.data.repository.CricketRepository;
 import io.github.ieswar23.strikezone.data.repository.MatchRepository;
+import io.github.ieswar23.strikezone.domain.achievements.Achievement;
+import io.github.ieswar23.strikezone.domain.achievements.Badge;
 import io.github.ieswar23.strikezone.domain.model.DailyChallenge;
 import io.github.ieswar23.strikezone.domain.model.Team;
 import io.github.ieswar23.strikezone.engine.Bowler;
@@ -120,6 +123,38 @@ public final class FakeRepositories {
         @Override
         public void clearAll() {
             saved.clear();
+        }
+    }
+
+    /** Records unlock checks and answers them with a scripted list of badges. */
+    public static class FakeAchievementRepository implements AchievementRepository {
+        public final MutableLiveData<List<Badge>> badges = new MutableLiveData<>();
+        public final MutableLiveData<List<Achievement>> unlockedByMatch = new MutableLiveData<>(Collections.emptyList());
+        public final List<Long> checkedMatchIds = new ArrayList<>();
+        public List<Achievement> nextUnlocks = Collections.emptyList();
+        public long observedMatchId = -1;
+        public int clearCalls;
+
+        @Override
+        public LiveData<List<Badge>> observeBadges() {
+            return badges;
+        }
+
+        @Override
+        public LiveData<List<Achievement>> observeUnlockedBy(long matchId) {
+            observedMatchId = matchId;
+            return unlockedByMatch;
+        }
+
+        @Override
+        public void checkUnlocks(long matchId, UnlockCallback callback) {
+            checkedMatchIds.add(matchId);
+            if (callback != null) callback.onChecked(nextUnlocks);
+        }
+
+        @Override
+        public void clearAll() {
+            clearCalls++;
         }
     }
 }

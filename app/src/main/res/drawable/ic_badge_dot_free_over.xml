@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Badge glyph: Six balls of an over, every one of them scored off. Tinted at runtime (gold when unlocked, muted when locked). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:tint="?attr/colorControlNormal"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M2.9,8.2a2.9,2.9 0,1 1,5.8,0a2.9,2.9 0,1 1,-5.8,0zM9.1,8.2a2.9,2.9 0,1 1,5.8,0a2.9,2.9 0,1 1,-5.8,0zM15.3,8.2a2.9,2.9 0,1 1,5.8,0a2.9,2.9 0,1 1,-5.8,0zM2.9,15.8a2.9,2.9 0,1 1,5.8,0a2.9,2.9 0,1 1,-5.8,0zM9.1,15.8a2.9,2.9 0,1 1,5.8,0a2.9,2.9 0,1 1,-5.8,0zM15.3,15.8a2.9,2.9 0,1 1,5.8,0a2.9,2.9 0,1 1,-5.8,0z" />
+</vector>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Badge glyph: A stopwatch with the final sliver of time left. Tinted at runtime (gold when unlocked, muted when locked). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:tint="?attr/colorControlNormal"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="@android:color/white"
+        android:fillType="evenOdd"
+        android:pathData="M3.5,13.5a8.5,8.5 0,1 1,17,0a8.5,8.5 0,1 1,-17,0zM5.4,13.5a6.6,6.6 0,1 1,13.2,0a6.6,6.6 0,1 1,-13.2,0z" />
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M12,13.5L12,8.5A5,5 0,1 1,9.5,9.17ZM9.8,1.5h4.4v2h-4.4zM11.2,3.4h1.6v1.8h-1.6zM18.1,5.1L19.5,3.7L21,5.2L19.6,6.6Z" />
+</vector>

@@ -23,8 +23,9 @@ The whole project is written in **Java**: the app, the custom game view and the 
 - **Match setup.** Choose from 8 fictional franchises (Mumbai Mavericks, Chennai Chargers, London Lions, Sydney Strikers…), 1, 2 or 5 overs, Easy, Medium or Hard, and **Quick Chase** (random target, re-rollable) or **Daily Challenge**.
 - **Daily Challenge.** A curated chase with a fixed opponent, target, difficulty and bowling plan (pace-only or spin-only attacks). It comes from the mock tournament API and a new one rotates in each day. Winning it marks it as completed.
 - **Match summary.** You get a victory, defeat or tie headline, the result line ("won by 2 wickets (5 balls to spare)" / "won by 12 runs"), a batting card (runs, balls, 4s, 6s, strike rate, dots, extras) and an animated **Manhattan chart** with wicket markers, drawn in a custom View.
+- **Achievements.** Twelve badges are earned from real match data: First Victory, First Fifty, Six Machine (3 sixes in one over), Perfect Timing ×10 (ten perfectly timed shots in one chase), No Dot Ball Over, Flawless Chase (no wickets lost), Last-Ball Hero, Hard Mode Winner, Chase Master (5 wins), Daily Challenger (Daily Challenge wins on 3 days in a row), Big Hitter (50 career sixes) and Boundary Century (100 career boundaries). The badge cabinet shows a grid of medals with custom vector icons, progress bars on locked badges, unlock dates and a "5 / 12 unlocked" ring. When a chase earns badges, the match summary shows an "Achievement unlocked!" card listing them.
 - **History and stats.** Every completed chase is stored in Room. History has filters (All, Won, Lost, Challenges) and swipe-to-delete with undo. The stats screen shows a win-rate ring, matches, wins, highest score, total sixes and fours, challenges won and your top-5 scores.
-- **Settings.** Default difficulty and overs, vibration on or off, and System, Light or Dark theme. You can also reset your history.
+- **Settings.** Default difficulty and overs, vibration on or off, and System, Light or Dark theme. You can also reset your history and badges.
 - **Polish.** Splash screen, adaptive launcher icon, edge-to-edge insets, Material 3 light and dark themes, Material motion transitions, an animated home title over sweeping floodlight beams, a skeleton loader, empty states and haptic feedback for shots, boundaries and wickets.
 
 ## Rules in short matches
@@ -48,7 +49,7 @@ An over is **six legal balls**. A wide adds one run and has to be bowled again. 
 | Navigation | Navigation Component (single activity, `nav_graph.xml`) |
 | Architecture | MVVM + Repository, `ViewModel` + `LiveData`, one-shot `Event` wrapper |
 | DI | Hilt (`@HiltAndroidApp`, `@AndroidEntryPoint`, `@HiltViewModel`, `@Provides`/`@Binds`) |
-| Persistence | Room (Java DAOs returning `LiveData`, SQL aggregates for stats) |
+| Persistence | Room (Java DAOs returning `LiveData`, SQL aggregates for stats, a hand-written `Migration` for schema v2) |
 | Settings | Typed `SharedPreferences` wrapper (`AppSettings`) |
 | Networking | Retrofit + Gson, served offline by an OkHttp `MockInterceptor` from `assets/api/*.json` |
 | Concurrency | Injected `AppExecutors` (`ExecutorService` for disk/network, main-thread executor) |
@@ -70,25 +71,30 @@ flowchart TD
         SC[ScoreCalculator]
         DG[DeliveryGenerator]
         FS[FieldSetting]
+        AE[AchievementEvaluator]
     end
     subgraph Data["Data layer"]
         CR[CricketRepository]
         MR[MatchRepository]
+        AR[AchievementRepository]
         API[Retrofit CricketApi]
         MI[MockInterceptor<br/>assets/api/*.json]
-        DB[(Room: teams, challenges, matches)]
+        DB[(Room: teams, challenges, matches, achievements)]
     end
     F --> VM
     F <--> PV
     VM --> ME & SR & SC & DG & FS
-    VM --> CR & MR
+    VM --> CR & MR & AR
     CR --> API --> MI
     CR --> DB
     MR --> DB
+    AR --> AE
+    AR --> DB
 ```
 
 - **Engine.** The `engine` package is plain Java with no Android imports. `MatchEngine` counts balls into overs, rotates bowlers and decides the result. `ShotResolver` turns a `Delivery` plus the player's `ShotInput` into a `BallOutcome` using weighted tables and an injected `Random`, so the same seed always gives the same result. `ScoreCalculator` handles run rates, overs notation, strike rate and the result text.
 - **Game loop.** `PitchView` animates a `DeliveryCommand` and reports the swing's offset from the moment the ball arrives. `GameViewModel` resolves the shot, records it, publishes a new `GameUiState` and sends the outcome back for animation. When the match ends, the ViewModel saves a `MatchEntity` and the screen moves to the summary.
+- **Achievements.** `AchievementEvaluator` (in `domain/achievements`, plain Java) turns the match history into each badge's progress: a best single-match effort (a fifty, sixes in one over, perfect shots) or a career total (wins, sixes, boundaries, the longest Daily Challenge streak). The engine records each shot's timing, so a saved match also stores its perfect shots, most sixes in an over and dot-free overs. After a match is saved, `AchievementRepository` re-evaluates the history, diffs it against the badges already unlocked and stores the new ones against that match, which is what the summary's banner shows. Unlocks are kept even if the matches behind them are deleted.
 - **Data.** On first launch the repository fetches teams and daily challenges through Retrofit (300–700 ms simulated latency) and caches them in Room. Room is the single source of truth after that. Everything runs offline.
 
 ## Package structure
@@ -103,14 +109,16 @@ io.github.ieswar23.strikezone
 │   ├── FieldSetting, Fielder, ShotDirection, WeightedPicker
 │   └── ScoreCalculator, TargetGenerator
 ├── data/
-│   ├── local/              # AppDatabase, MatchStats, dao/, entity/
+│   ├── local/              # AppDatabase (+ migrations), MatchStats, dao/, entity/
 │   ├── remote/             # CricketApi, MockInterceptor, dto/
-│   ├── repository/         # CricketRepository, MatchRepository (+ defaults), CatalogMapper
+│   ├── repository/         # Cricket/Match/AchievementRepository (+ defaults), CatalogMapper, AchievementMapper
 │   └── settings/           # AppSettings
-├── domain/model/           # Team, DailyChallenge, MatchSetup, GameMode
+├── domain/
+│   ├── model/              # Team, DailyChallenge, MatchSetup, GameMode
+│   └── achievements/       # Achievement, AchievementEvaluator, AchievementProgress, Badge, MatchRecord
 ├── di/                     # AppModule, DatabaseModule, NetworkModule, RepositoryModule, RandomModule
 ├── ui/
-│   ├── home/  setup/  game/  summary/  history/  stats/  howto/  settings/
+│   ├── home/  setup/  game/  summary/  history/  stats/  achievements/  howto/  settings/
 │   └── common/             # FloodlightView, ManhattanChartView, TeamBadge
 └── util/                   # AppExecutors, Event, UiState, SyncState, LiveDataUtils, Haptics, …
 ```
@@ -135,13 +143,17 @@ You don't need any API keys or network access. The tournament API is mocked from
 ./gradlew testDebugUnitTest
 ```
 
-There are 34 JVM unit tests:
+There are 75 JVM unit tests (the Room migration test runs on Robolectric):
 
 - `ShotResolverTest`: the same seed gives identical outcomes; perfect shots into an unguarded zone are never out; boundary riders take catches; wides; leaves; misses that hit the stumps; perfect timing beats early timing; shot power; timing windows; difficulty and speed bands.
-- `MatchEngineTest`: six legal balls per over (wides excluded); the chase completes on reaching the target; all out; tie; out of balls; bowler rotation; per-over breakdown; the wicket allowance rule.
+- `MatchEngineTest`: six legal balls per over (wides excluded); the chase completes on reaching the target; all out; tie; out of balls; bowler rotation; per-over breakdown; the wicket allowance rule; perfect-shot counting, most sixes in an over and dot-free overs.
 - `ScoreCalculatorTest`: run rates (including edge cases), overs notation, strike rate, won/lost/tied result text, the chase equation, win percentage and Quick Chase target bands.
-- `GameViewModelTest`: a full simulated chase with fake repositories saves a consistent scorecard; leaving every ball loses; a missing team triggers the error state; a spin challenge uses only spinners.
+- `GameViewModelTest`: a full simulated chase with fake repositories saves a consistent scorecard (including the shot facts badges use); badges are checked once for the saved match before the summary opens; leaving every ball loses; a missing team triggers the error state; a spin challenge uses only spinners.
 - `MatchSetupResolveTest`: team defaults and clash resolution; Daily Challenge locks the opponent, overs and difficulty.
+- `AchievementEvaluatorTest`: every badge rule with its boundary (49 vs 50 runs, 2 vs 3 sixes in an over, 9 vs 10 perfect shots, 4 vs 5 wins, 49 vs 50 sixes, 99 vs 100 boundaries, the last ball vs one ball to spare); single-match feats don't add up across matches; the Daily Challenge streak ignores losses, Quick Chases, gaps and repeat wins on one day, and follows the time zone; already unlocked badges aren't reported again; progress is clamped; order independence.
+- `DefaultAchievementRepositoryTest`: new badges are stored against (and dated by) the match that earned them, only once; older history is back-filled; stored unlocks survive a cleared history; the entity mapper carries every fact.
+- `AchievementsViewModelTest`: the header count and "next up" badge, the all-unlocked state, the summary's newly unlocked badges and one distinct icon per badge.
+- `AppDatabaseMigrationTest`: a version 1 database with match history upgrades to version 2 with its matches intact and an empty achievements table.
 
 ### Screenshot tests
 
@@ -173,6 +185,8 @@ These tests are excluded from a plain `./gradlew testDebugUnitTest` (and CI), so
   </tr>
   <tr>
     <td align="center"><img src="docs/screenshots/07_history_dark.png" width="250" alt="Match history in dark theme"/><br/><sub>Match history (dark theme)</sub></td>
+    <td align="center"><img src="docs/screenshots/08_achievements.png" width="250" alt="Achievements"/><br/><sub>Achievements: unlocked medals and progress on the rest</sub></td>
+    <td align="center"><img src="docs/screenshots/09_achievement_unlocked.png" width="250" alt="Match summary with the Achievement unlocked card"/><br/><sub>Match summary: achievements unlocked by the chase</sub></td>
   </tr>
 </table>
 

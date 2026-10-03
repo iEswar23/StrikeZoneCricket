@@ -115,4 +115,44 @@ public class MatchEngineTest {
         assertThrows(IllegalArgumentException.class,
                 () -> new MatchEngine(MatchConfig.standard(1, 10, Difficulty.EASY), Collections.emptyList()));
     }
+
+    @Test
+    public void countsPerfectlyTimedShotsFromResolvedOutcomes() {
+        MatchEngine e = engine(2, 100);
+        e.record(new BallOutcome(OutcomeType.SIX, Timing.PERFECT, ShotDirection.LEG, -40, null, "SIX!", "Launched"));
+        e.record(new BallOutcome(OutcomeType.ONE, Timing.EARLY, ShotDirection.OFF, 30, null, "1", "Pushed"));
+        e.record(new BallOutcome(OutcomeType.CAUGHT, Timing.PERFECT, ShotDirection.STRAIGHT, 0, "long-on", "OUT!", "Caught"));
+        e.record(OutcomeType.DOT, "no timing recorded");
+        assertThat(e.getPerfectShots()).isEqualTo(2);
+        assertThat(e.getOvers().get(0).getBalls().get(1).getTiming()).isEqualTo(Timing.EARLY);
+        assertThat(e.getOvers().get(0).getBalls().get(3).getTiming()).isNull();
+    }
+
+    @Test
+    public void tracksTheMostSixesHitInOneOver() {
+        MatchEngine e = engine(2, 200);
+        record(e, OutcomeType.SIX, OutcomeType.DOT, OutcomeType.SIX, OutcomeType.ONE, OutcomeType.DOT, OutcomeType.DOT);
+        assertThat(e.maxSixesInOver()).isEqualTo(2);
+        record(e, OutcomeType.SIX, OutcomeType.SIX, OutcomeType.WIDE, OutcomeType.SIX);
+        assertThat(e.maxSixesInOver()).isEqualTo(3);
+        assertThat(e.getSixes()).isEqualTo(5);
+    }
+
+    @Test
+    public void scoringOverNeedsRunsOffEverySixLegalBalls() {
+        MatchEngine e = engine(5, 300);
+        // Over 1: every legal ball scores; the wide in the middle doesn't matter.
+        record(e, OutcomeType.ONE, OutcomeType.TWO, OutcomeType.WIDE, OutcomeType.FOUR, OutcomeType.ONE,
+                OutcomeType.THREE, OutcomeType.SIX);
+        assertThat(e.scoringOvers()).isEqualTo(1);
+        // Over 2: one dot ball spoils it.
+        record(e, OutcomeType.ONE, OutcomeType.ONE, OutcomeType.DOT, OutcomeType.ONE, OutcomeType.ONE, OutcomeType.ONE);
+        // Over 3: a run-out credits a run but is still a wicket.
+        record(e, OutcomeType.ONE, OutcomeType.ONE, OutcomeType.RUN_OUT, OutcomeType.ONE, OutcomeType.ONE, OutcomeType.ONE);
+        // Over 4 in progress: five scoring balls is not a full over yet.
+        record(e, OutcomeType.FOUR, OutcomeType.FOUR, OutcomeType.FOUR, OutcomeType.FOUR, OutcomeType.FOUR);
+        assertThat(e.scoringOvers()).isEqualTo(1);
+        record(e, OutcomeType.TWO);
+        assertThat(e.scoringOvers()).isEqualTo(2);
+    }
 }

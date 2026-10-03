@@ -25,6 +25,10 @@ public interface MatchDao {
     @Query("SELECT * FROM matches ORDER BY playedAt DESC")
     LiveData<List<MatchEntity>> observeAll();
 
+    /** Blocking snapshot of the whole history; call from a background thread. */
+    @Query("SELECT * FROM matches ORDER BY playedAt ASC")
+    List<MatchEntity> getAllSync();
+
     @Query("SELECT * FROM matches WHERE id = :id LIMIT 1")
     LiveData<MatchEntity> observeById(long id);
 

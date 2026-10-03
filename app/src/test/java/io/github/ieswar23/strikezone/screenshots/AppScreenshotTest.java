@@ -54,10 +54,13 @@ import dagger.hilt.android.testing.UninstallModules;
 import dagger.hilt.components.SingletonComponent;
 import io.github.ieswar23.strikezone.MainActivity;
 import io.github.ieswar23.strikezone.R;
+import io.github.ieswar23.strikezone.data.local.dao.AchievementDao;
+import io.github.ieswar23.strikezone.data.local.entity.AchievementEntity;
 import io.github.ieswar23.strikezone.data.local.entity.MatchEntity;
 import io.github.ieswar23.strikezone.data.repository.CricketRepository;
 import io.github.ieswar23.strikezone.data.repository.MatchRepository;
 import io.github.ieswar23.strikezone.di.RandomModule;
+import io.github.ieswar23.strikezone.domain.achievements.Achievement;
 import io.github.ieswar23.strikezone.domain.model.GameMode;
 import io.github.ieswar23.strikezone.domain.model.MatchSetup;
 import io.github.ieswar23.strikezone.engine.BallOutcome;
@@ -110,6 +113,8 @@ public class AppScreenshotTest {
     CricketRepository cricketRepository;
     @Inject
     MatchRepository matchRepository;
+    @Inject
+    AchievementDao achievementDao;
 
     private final ExecutorService background = Executors.newSingleThreadExecutor();
     private ActivityScenario<MainActivity> scenario;
@@ -239,6 +244,41 @@ public class AppScreenshotTest {
         capture("07_history_dark");
     }
 
+    @Test
+    public void achievements() {
+        launch();
+        seedBadges(seedHistory());
+        navigate(R.id.achievementsFragment, null);
+        waitUntil(() -> {
+            RecyclerView grid = activity.findViewById(R.id.badgeGrid);
+            return grid != null && grid.getChildCount() > 4;
+        });
+        settle(1_500);
+        // Robolectric does not tick the indicator's spring animation; snap it to its final value.
+        CircularProgressIndicator ring = activity.findViewById(R.id.unlockRing);
+        ring.setProgressCompat(ring.getProgress(), false);
+        settle(100);
+        capture("08_achievements");
+    }
+
+    @Test
+    public void matchSummaryWithNewBadges() {
+        launch();
+        long matchId = seedHistory();
+        seedBadges(matchId);
+        Bundle args = new Bundle();
+        args.putLong("matchId", matchId);
+        navigate(R.id.summaryFragment, args);
+        waitUntil(() -> {
+            View banner = activity.findViewById(R.id.badgeBanner);
+            TextView score = activity.findViewById(R.id.finalScore);
+            return banner != null && banner.getVisibility() == View.VISIBLE
+                    && score != null && score.getText().length() > 0;
+        });
+        settle(2_000);
+        capture("09_achievement_unlocked");
+    }
+
     // ------------------------------------------------------------------------------------------
     // Scripted data
     // ------------------------------------------------------------------------------------------
@@ -287,20 +327,20 @@ public class AppScreenshotTest {
     /** Inserts a realistic match history and returns the id of the featured (won) chase. */
     private long seedHistory() {
         List<MatchEntity> matches = new ArrayList<>();
-        matches.add(match(day(29, 20, 41), "mum", "Mumbai Mavericks", "MUM", "#1E6FD9", "lon", "London Lions", "LON", "#C8102E",
-                5, 58, "MEDIUM", 59, 3, 28, 5, 3, 7, 2, true, false, "9:0,14:1,11:0,13:1,12:1", null));
-        matches.add(match(day(28, 21, 5), "mum", "Mumbai Mavericks", "MUM", "#1E6FD9", "syd", "Sydney Strikers", "SYD", "#00A6B4",
-                2, 31, "HARD", 24, 3, 11, 2, 1, 3, 1, false, false, "13:1,11:2", null));
-        matches.add(match(day(27, 19, 32), "mum", "Mumbai Mavericks", "MUM", "#1E6FD9", "col", "Colombo Cyclones", "COL", "#0F4C81",
-                2, 24, "MEDIUM", 25, 1, 10, 2, 1, 2, 1, true, false, "14:0,11:1", "dc-002"));
-        matches.add(match(day(26, 22, 14), "che", "Chennai Chargers", "CHE", "#F2B705", "kar", "Karachi Kestrels", "KAR", "#1F8A4C",
-                1, 16, "EASY", 17, 0, 5, 1, 2, 1, 0, true, false, "17:0", null));
-        matches.add(match(day(25, 20, 3), "lon", "London Lions", "LON", "#C8102E", "mum", "Mumbai Mavericks", "MUM", "#1E6FD9",
-                2, 28, "MEDIUM", 27, 2, 12, 3, 1, 3, 1, false, true, "15:1,12:1", null));
-        matches.add(match(day(24, 18, 47), "syd", "Sydney Strikers", "SYD", "#00A6B4", "che", "Chennai Chargers", "CHE", "#F2B705",
-                5, 62, "MEDIUM", 66, 4, 29, 6, 3, 8, 2, true, false, "12:1,9:0,15:1,16:1,14:1", null));
-        matches.add(match(day(23, 21, 22), "mum", "Mumbai Mavericks", "MUM", "#1E6FD9", "kar", "Karachi Kestrels", "KAR", "#1F8A4C",
-                5, 70, "HARD", 61, 5, 27, 5, 2, 9, 3, false, false, "10:1,16:0,12:2,15:1,8:1", null));
+        matches.add(shots(match(day(29, 20, 41), "mum", "Mumbai Mavericks", "MUM", "#1E6FD9", "lon", "London Lions", "LON", "#C8102E",
+                5, 58, "MEDIUM", 59, 3, 28, 5, 3, 7, 2, true, false, "9:0,14:1,11:0,13:1,12:1", null), 10, 2, 1));
+        matches.add(shots(match(day(28, 21, 5), "mum", "Mumbai Mavericks", "MUM", "#1E6FD9", "syd", "Sydney Strikers", "SYD", "#00A6B4",
+                2, 31, "HARD", 24, 3, 11, 2, 1, 3, 1, false, false, "13:1,11:2", null), 3, 1, 0));
+        matches.add(shots(match(day(27, 19, 32), "mum", "Mumbai Mavericks", "MUM", "#1E6FD9", "col", "Colombo Cyclones", "COL", "#0F4C81",
+                2, 24, "MEDIUM", 25, 1, 10, 2, 1, 2, 1, true, false, "14:0,11:1", "dc-002"), 5, 1, 0));
+        matches.add(shots(match(day(26, 22, 14), "che", "Chennai Chargers", "CHE", "#F2B705", "kar", "Karachi Kestrels", "KAR", "#1F8A4C",
+                1, 16, "EASY", 17, 0, 5, 1, 2, 1, 0, true, false, "17:0", null), 4, 2, 0));
+        matches.add(shots(match(day(25, 20, 3), "lon", "London Lions", "LON", "#C8102E", "mum", "Mumbai Mavericks", "MUM", "#1E6FD9",
+                2, 28, "MEDIUM", 27, 2, 12, 3, 1, 3, 1, false, true, "15:1,12:1", null), 5, 1, 0));
+        matches.add(shots(match(day(24, 18, 47), "syd", "Sydney Strikers", "SYD", "#00A6B4", "che", "Chennai Chargers", "CHE", "#F2B705",
+                5, 62, "MEDIUM", 66, 4, 29, 6, 3, 8, 2, true, false, "12:1,9:0,15:1,16:1,14:1", null), 8, 2, 0));
+        matches.add(shots(match(day(23, 21, 22), "mum", "Mumbai Mavericks", "MUM", "#1E6FD9", "kar", "Karachi Kestrels", "KAR", "#1F8A4C",
+                5, 70, "HARD", 61, 5, 27, 5, 2, 9, 3, false, false, "10:1,16:0,12:2,15:1,8:1", null), 7, 1, 0));
 
         long[] featured = {-1};
         AtomicInteger saved = new AtomicInteger();
@@ -316,6 +356,33 @@ public class AppScreenshotTest {
             waitUntil(() -> saved.get() == expected);
         }
         return featured[0];
+    }
+
+    /** Shot facts the achievements are judged on: perfect shots, most sixes in an over, scoring overs. */
+    private static MatchEntity shots(MatchEntity m, int perfectShots, int maxSixesInOver, int scoringOvers) {
+        m.perfectShots = perfectShots;
+        m.maxSixesInOver = maxSixesInOver;
+        m.scoringOvers = scoringOvers;
+        return m;
+    }
+
+    /**
+     * Stores the badges the seeded history has earned, dated by the match that earned each one, so
+     * the achievements screen shows a realistic 5 / 12. The featured chase (the last one played)
+     * unlocked two of them. Ids follow the play order, so earlier matches are {@code featuredId - n}.
+     */
+    private void seedBadges(long featuredId) {
+        List<AchievementEntity> rows = new ArrayList<>();
+        rows.add(new AchievementEntity(Achievement.FIRST_FIFTY.name(), day(23, 21, 22), featuredId - 6));
+        rows.add(new AchievementEntity(Achievement.FIRST_WIN.name(), day(24, 18, 47), featuredId - 5));
+        rows.add(new AchievementEntity(Achievement.FLAWLESS_CHASE.name(), day(26, 22, 14), featuredId - 3));
+        rows.add(new AchievementEntity(Achievement.PERFECT_TEN.name(), day(29, 20, 41), featuredId));
+        rows.add(new AchievementEntity(Achievement.DOT_FREE_OVER.name(), day(29, 20, 41), featuredId));
+        try {
+            background.submit(() -> achievementDao.insertAll(rows)).get();
+        } catch (Exception e) {
+            throw new AssertionError(e);
+        }
     }
 
     private static MatchEntity match(long playedAt, String batId, String batName, String batShort, String batColor,

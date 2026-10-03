@@ -463,5 +463,41 @@
                     app:drawableTopCompat="@drawable/ic_tune" />
             </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/tileAchievements"
+            style="@style/Widget.StrikeZone.HomeTile"
+            android:layout_width="match_parent"
+            android:layout_marginStart="@dimen/space_l"
+            android:layout_marginTop="@dimen/space_m"
+            android:layout_marginEnd="@dimen/space_l"
+            android:clickable="true"
+            android:focusable="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/HomeTileText"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/home_tile_achievements"
+                    app:drawableStartCompat="@drawable/ic_trophy" />
+
+                <TextView
+                    android:id="@+id/achievementsCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:textAppearance="@style/TextAppearance.StrikeZone.StatValue"
+                    android:textColor="?attr/colorTertiary"
+                    android:textSize="22sp"
+                    tools:text="5/12" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

@@ -5,12 +5,18 @@ public final class Ball {
     private final int overIndex;
     private final int sequence;
     private final OutcomeType type;
+    private final Timing timing;
     private final String description;
 
     public Ball(int overIndex, int sequence, OutcomeType type, String description) {
+        this(overIndex, sequence, type, null, description);
+    }
+
+    public Ball(int overIndex, int sequence, OutcomeType type, Timing timing, String description) {
         this.overIndex = overIndex;
         this.sequence = sequence;
         this.type = type;
+        this.timing = timing;
         this.description = description;
     }
 
@@ -26,6 +32,15 @@ public final class Ball {
 
     public OutcomeType getType() {
         return type;
+    }
+
+    /** How the shot was timed, or null when the ball was recorded without a resolved shot. */
+    public Timing getTiming() {
+        return timing;
+    }
+
+    public boolean isPerfectlyTimed() {
+        return timing == Timing.PERFECT;
     }
 
     public String getDescription() {

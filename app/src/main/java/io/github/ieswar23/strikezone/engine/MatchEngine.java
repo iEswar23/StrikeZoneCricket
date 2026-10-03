@@ -20,6 +20,7 @@ public final class MatchEngine {
     private int sixes;
     private int dots;
     private int extras;
+    private int perfectShots;
     private MatchStatus status = MatchStatus.IN_PROGRESS;
     private boolean lastBallCompletedOver;
 
@@ -32,13 +33,18 @@ public final class MatchEngine {
 
     /** Records the outcome of the current delivery and returns the stored ball. */
     public Ball record(BallOutcome outcome) {
-        return record(outcome.getType(), outcome.getDescription());
+        return record(outcome.getType(), outcome.getTiming(), outcome.getDescription());
     }
 
     public Ball record(OutcomeType type, String description) {
+        return record(type, null, description);
+    }
+
+    /** Records a ball together with how the shot was timed (null if no shot was resolved). */
+    public Ball record(OutcomeType type, Timing timing, String description) {
         if (status.isFinished()) throw new IllegalStateException("Match is already finished: " + status);
         Over over = currentOver();
-        Ball ball = over.add(type, description);
+        Ball ball = over.add(type, timing, description);
 
         runs += type.getRuns();
         if (type.isWicket()) wickets++;
@@ -47,6 +53,7 @@ public final class MatchEngine {
         if (type == OutcomeType.SIX) sixes++;
         if (type == OutcomeType.DOT) dots++;
         if (type == OutcomeType.WIDE) extras += type.getRuns();
+        if (ball.isPerfectlyTimed()) perfectShots++;
 
         status = evaluate();
         lastBallCompletedOver = over.isComplete();
@@ -130,6 +137,25 @@ public final class MatchEngine {
 
     public int getExtras() {
         return extras;
+    }
+
+    /** Shots timed inside the perfect window. */
+    public int getPerfectShots() {
+        return perfectShots;
+    }
+
+    /** Most sixes hit in any single over of the innings. */
+    public int maxSixesInOver() {
+        int max = 0;
+        for (Over o : overs) max = Math.max(max, o.count(OutcomeType.SIX));
+        return max;
+    }
+
+    /** Completed overs in which the batter scored off every legal ball (see {@link Over#isScoringOver()}). */
+    public int scoringOvers() {
+        int n = 0;
+        for (Over o : overs) if (o.isScoringOver()) n++;
+        return n;
     }
 
     /** Runs scored off the bat (total minus extras). */

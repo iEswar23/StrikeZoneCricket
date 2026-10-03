@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingTop="@dimen/space_s"
+    android:paddingBottom="@dimen/space_xs">
+
+    <ImageView
+        android:id="@+id/medal"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="@drawable/bg_badge_unlocked"
+        android:importantForAccessibility="no"
+        android:padding="11dp"
+        android:scaleType="fitCenter"
+        app:tint="@color/floodlight_yellow"
+        tools:src="@drawable/ic_badge_perfect_ten" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_m"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?attr/textAppearanceTitleSmall"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            tools:text="Perfect Timing x10" />
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?attr/textAppearanceBodySmall"
+            android:textColor="@color/white_70"
+            tools:text="Time 10 shots perfectly in one chase" />
+    </LinearLayout>
+</LinearLayout>

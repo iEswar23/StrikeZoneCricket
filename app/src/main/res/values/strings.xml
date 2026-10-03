@@ -36,6 +36,8 @@
     <string name="home_tile_stats">Stats</string>
     <string name="home_tile_howto">How to play</string>
     <string name="home_tile_settings">Settings</string>
+    <string name="home_tile_achievements">Achievements</string>
+    <string name="home_achievements_count">%1$d/%2$d</string>
 
     <!-- Setup -->
     <string name="setup_title">Match setup</string>
@@ -116,6 +118,11 @@
     <string name="summary_play_again">Play again</string>
     <string name="summary_home">Home</string>
     <string name="summary_close">Close</string>
+    <plurals name="summary_badge_title">
+        <item quantity="one">Achievement unlocked!</item>
+        <item quantity="other">%d achievements unlocked!</item>
+    </plurals>
+    <string name="summary_badge_view_all">View all</string>
 
     <!-- History -->
     <string name="history_title">Match history</string>
@@ -153,6 +160,18 @@
     <string name="stats_empty_title">No stats yet</string>
     <string name="stats_empty_body">Finish a chase to start building your career record.</string>
 
+    <!-- Achievements -->
+    <string name="achievements_title">Achievements</string>
+    <string name="achievements_header_label">Badge cabinet</string>
+    <string name="achievements_unlocked_count">%1$d / %2$d unlocked</string>
+    <string name="achievements_next_up">Next up: %1$s · %2$s</string>
+    <string name="achievements_next_up_one_off">Next up: %s</string>
+    <string name="achievements_all_done">Every badge unlocked. Legend of the floodlights!</string>
+    <string name="achievements_unlocked_on">Unlocked %s</string>
+    <string name="achievements_locked">Locked</string>
+    <string name="achievements_cd_unlocked">%1$s, unlocked %2$s. %3$s</string>
+    <string name="achievements_cd_locked">%1$s, locked, %2$s. %3$s</string>
+
     <!-- How to play -->
     <string name="howto_title">How to play</string>
     <string name="howto_controls_title">Controls</string>
@@ -188,9 +207,9 @@
     <string name="theme_dark">Dark</string>
     <string name="settings_data">Data</string>
     <string name="settings_reset">Reset match history</string>
-    <string name="settings_reset_caption">Deletes all saved matches and stats</string>
+    <string name="settings_reset_caption">Deletes all saved matches, stats and badges</string>
     <string name="settings_reset_title">Reset history?</string>
-    <string name="settings_reset_message">This permanently deletes every saved match, best score and career stat.</string>
+    <string name="settings_reset_message">This permanently deletes every saved match, best score, career stat and badge.</string>
     <string name="settings_reset_confirm">Delete all</string>
     <string name="settings_reset_done">Match history cleared</string>
     <string name="settings_version">StrikeZone Cricket v%s · Made with Java</string>

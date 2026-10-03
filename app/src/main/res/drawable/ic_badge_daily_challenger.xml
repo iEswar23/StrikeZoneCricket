@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Badge glyph: A calendar page with three days in a row filled in for a Daily Challenge streak. Tinted at runtime (gold when unlocked, muted when locked). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:tint="?attr/colorControlNormal"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="@android:color/white"
+        android:fillType="evenOdd"
+        android:pathData="M4.5,4.5H19.5Q21,4.5 21,6V19.5Q21,21 19.5,21H4.5Q3,21 3,19.5V6Q3,4.5 4.5,4.5ZM5,9.5V19H19V9.5Z" />
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M7,2.5h2v4h-2zM15,2.5h2v4h-2zM6.4,11.5h3.2v3.2h-3.2zM10.4,11.5h3.2v3.2h-3.2zM14.4,11.5h3.2v3.2h-3.2zM6.4,16.2h11.2v1.2h-11.2z" />
+</vector>

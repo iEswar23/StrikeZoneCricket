@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_home_to_settings"
             app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_home_to_achievements"
+            app:destination="@id/achievementsFragment" />
     </fragment>
 
     <fragment
@@ -94,6 +97,9 @@
             app:destination="@id/gameFragment"
             app:popUpTo="@id/summaryFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_summary_to_achievements"
+            app:destination="@id/achievementsFragment" />
     </fragment>
 
     <fragment
@@ -114,6 +120,12 @@
         android:name="io.github.ieswar23.strikezone.ui.stats.StatsFragment"
         android:label="@string/stats_title"
         tools:layout="@layout/fragment_stats" />
+
+    <fragment
+        android:id="@+id/achievementsFragment"
+        android:name="io.github.ieswar23.strikezone.ui.achievements.AchievementsFragment"
+        android:label="@string/achievements_title"
+        tools:layout="@layout/fragment_achievements" />
 
     <fragment
         android:id="@+id/howToPlayFragment"

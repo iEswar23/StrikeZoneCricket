@@ -9,12 +9,14 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
 import io.github.ieswar23.strikezone.data.local.entity.MatchEntity;
+import io.github.ieswar23.strikezone.domain.achievements.Achievement;
 import io.github.ieswar23.strikezone.domain.model.GameMode;
 import io.github.ieswar23.strikezone.domain.model.MatchSetup;
 import io.github.ieswar23.strikezone.engine.BallOutcome;
@@ -22,6 +24,7 @@ import io.github.ieswar23.strikezone.engine.Bowler;
 import io.github.ieswar23.strikezone.engine.BowlerType;
 import io.github.ieswar23.strikezone.engine.Difficulty;
 import io.github.ieswar23.strikezone.engine.ShotInput;
+import io.github.ieswar23.strikezone.ui.FakeRepositories.FakeAchievementRepository;
 import io.github.ieswar23.strikezone.ui.FakeRepositories.FakeCricketRepository;
 import io.github.ieswar23.strikezone.ui.FakeRepositories.FakeMatchRepository;
 import io.github.ieswar23.strikezone.ui.game.DeliveryCommand;
@@ -38,12 +41,14 @@ public class GameViewModelTest {
 
     private FakeCricketRepository cricket;
     private FakeMatchRepository matches;
+    private FakeAchievementRepository achievements;
     private AppExecutors executors;
 
     @Before
     public void setUp() {
         cricket = new FakeCricketRepository();
         matches = new FakeMatchRepository();
+        achievements = new FakeAchievementRepository();
         executors = new AppExecutors(Runnable::run, Runnable::run);
     }
 
@@ -59,7 +64,8 @@ public class GameViewModelTest {
         args.put(MatchSetup.ARG_MODE, setup.getMode().name());
         args.put(MatchSetup.ARG_CHALLENGE, setup.getChallengeId());
         args.put(MatchSetup.ARG_BOWLER_FOCUS, setup.getBowlerFocus());
-        return new GameViewModel(new SavedStateHandle(args), cricket, matches, executors, new Random(2026));
+        return new GameViewModel(new SavedStateHandle(args), cricket, matches, achievements, executors,
+                new Random(2026));
     }
 
     /** Plays until the match is saved, swinging with the line on every ball (or leaving everything). */
@@ -114,6 +120,32 @@ public class GameViewModelTest {
         assertThat(saved.resultText).isEqualTo(state.resultText);
         assertThat(saved.overSummary).isNotEmpty();
         assertThat(vm.getFinished().getValue().consume()).isEqualTo(saved.id);
+    }
+
+    @Test
+    public void savedMatchRecordsTheShotFactsBadgesAreJudgedOn() {
+        GameViewModel vm = create("mum", "col", 2, 25, null);
+        playOut(vm, true);
+        MatchEntity saved = matches.saved.get(0);
+        assertThat(saved.perfectShots).isAtLeast(0);
+        assertThat(saved.perfectShots).isAtMost(saved.balls + saved.extras);
+        assertThat(saved.maxSixesInOver).isAtMost(saved.sixes);
+        if (saved.sixes > 0) assertThat(saved.maxSixesInOver).isAtLeast(1);
+        assertThat(saved.scoringOvers).isAtMost(saved.overs);
+    }
+
+    @Test
+    public void badgesAreCheckedForTheSavedMatchBeforeTheSummaryOpens() {
+        achievements.nextUnlocks = Collections.singletonList(Achievement.FIRST_WIN);
+        GameViewModel vm = create("mum", "col", 1, 12, null);
+        playOut(vm, true);
+        MatchEntity saved = matches.saved.get(0);
+        assertThat(achievements.checkedMatchIds).containsExactly(saved.id);
+        assertThat(vm.getFinished().getValue().consume()).isEqualTo(saved.id);
+
+        // Re-attaching the pitch after the match is over re-sends the result without re-checking.
+        vm.onPitchReady();
+        assertThat(achievements.checkedMatchIds).hasSize(1);
     }
 
     @Test

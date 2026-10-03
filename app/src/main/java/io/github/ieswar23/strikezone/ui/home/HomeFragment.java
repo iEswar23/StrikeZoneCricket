@@ -70,12 +70,17 @@ public class HomeFragment extends Fragment {
         binding.tileStats.setOnClickListener(v -> NavUtils.navigateSafely(nav, R.id.action_home_to_stats, null));
         binding.tileHowTo.setOnClickListener(v -> NavUtils.navigateSafely(nav, R.id.action_home_to_howToPlay, null));
         binding.tileSettings.setOnClickListener(v -> NavUtils.navigateSafely(nav, R.id.action_home_to_settings, null));
+        binding.tileAchievements.setOnClickListener(v -> NavUtils.navigateSafely(nav, R.id.action_home_to_achievements, null));
         binding.challengeDate.setText(Formatters.todayLabel());
 
         viewModel.getChallenge().observe(getViewLifecycleOwner(), this::renderChallenge);
         viewModel.getChallengeCompleted().observe(getViewLifecycleOwner(), done ->
                 binding.challengeDone.setVisibility(Boolean.TRUE.equals(done) ? View.VISIBLE : View.GONE));
         viewModel.getStats().observe(getViewLifecycleOwner(), this::renderStats);
+        viewModel.getAchievements().observe(getViewLifecycleOwner(), a -> {
+            if (a == null || a.loading) return;
+            binding.achievementsCount.setText(getString(R.string.home_achievements_count, a.unlocked, a.total));
+        });
 
         if (savedInstanceState == null) animateTitle();
         startAmbientAnimations();
